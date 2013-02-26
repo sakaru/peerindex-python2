@@ -10,6 +10,6 @@ See examply.py for some sample usage, but essentially:
 ```python
 api = peerindex.PeerIndex('f183qza9k88mjynhtjfc56ce')
 query = {'twitter_screen_name' : 'fhuszar'}
-statusCode,basic = api.ActorBasic(query)
+basic = api.ActorBasic(query)
 ```
 

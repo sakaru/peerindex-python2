@@ -44,12 +44,14 @@ if not name:
     name = "fhuszar"
 
 # Query the profile
+query = {'twitter_screen_name' : name}
 try:
-    query = {'twitter_screen_name' : name}
-    try:
-        statusCode,basic    = api.ActorBasic(query)
-        statusCode,extended = api.ActorExtended(query)
-        statusCode,topics   = api.ActorTopic(query)
-        display(basic, extended, topics)
-    except peerindex.PeerIndexError as err:
-        print "ERROR: check your API key"
+    basic    = api.ActorBasic(query)
+    extended = api.ActorExtended(query)
+    topics   = api.ActorTopic(query)
+    display(basic, extended, topics)
+
+except peerindex.PeerIndexError as err:
+    print "ERROR: check your API key"
+except ValueError as err:
+    print "ERROR: check your API key"

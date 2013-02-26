@@ -72,7 +72,7 @@ class PeerIndex(object):
 
         Returns
         -------
-        A tuple, first the status code of the response, then the returned data
+        The returned actor object
 
         """
         url = 'actor/basic'
@@ -89,7 +89,7 @@ class PeerIndex(object):
 
         Returns
         -------
-        A tuple, first the status code of the response, then the returned data
+        The returned actor object
 
         """
         url = 'actor/extended'
@@ -106,7 +106,7 @@ class PeerIndex(object):
 
         Returns
         -------
-        A tuple, first the status code of the response, then the returned data
+        The returned actor object
 
         """
         url = 'actor/topic'
@@ -123,7 +123,7 @@ class PeerIndex(object):
 
         Returns
         -------
-        A tuple, first the status code of the response, then the returned data
+        The returned actor object
 
         """
         url = 'actor/graph'
@@ -145,7 +145,7 @@ class PeerIndex(object):
         '''
         ret = {}
         for key in params:
-            if not params[key] == None:
+            if params[key]:
                 ret[key] = params[key]
 
         return ret
@@ -188,8 +188,5 @@ class PeerIndex(object):
         except httplib.HTTPException as err:
             msg = err.read() or ERROR_STATUS.get(err.code, err.message)
             raise PeerIndexError(err.code, msg)
-        except ValueError:
-            msg = 'Invalid data: %s' % data
-            raise PeerIndexError(0, msg)
 
-        return resp.status, data
+        return data
