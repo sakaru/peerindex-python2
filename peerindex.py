@@ -62,7 +62,7 @@ class PeerIndex(object):
     def __init__(self, api_key):
         self._api_key = api_key
 
-    def ActorBasic(self, query):
+    def actorBasic(self, query):
         """
         Retrieve basic information about a user
 
@@ -79,7 +79,7 @@ class PeerIndex(object):
         data = self._make_api_call(url, query)
         return data
 
-    def ActorExtended(self, query):
+    def actorExtended(self, query):
         """
         Retrieve extended information about a user
 
@@ -96,7 +96,7 @@ class PeerIndex(object):
         data = self._make_api_call(url, query)
         return data
 
-    def ActorTopic(self, query):
+    def actorTopic(self, query):
         """
         Retrieve topic related information about a user
 
@@ -113,7 +113,7 @@ class PeerIndex(object):
         data = self._make_api_call(url, query)
         return data
 
-    def ActorGraph(self, query):
+    def actorGraph(self, query):
         """
         Retrieve the social graph of a user
 

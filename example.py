@@ -46,9 +46,9 @@ if not name:
 # Query the profile
 query = {'twitter_screen_name' : name}
 try:
-    basic    = api.ActorBasic(query)
-    extended = api.ActorExtended(query)
-    topics   = api.ActorTopic(query)
+    basic    = api.actorBasic(query)
+    extended = api.actorExtended(query)
+    topics   = api.actorTopic(query)
     display(basic, extended, topics)
 
 except peerindex.PeerIndexError as err:
