@@ -9,29 +9,36 @@ if not flag:
     raise Exception("Config file needs to be created, please read the readme.")
 
 
-def display(basic, extended, topics):
-    benchmarkTopicsText = ""
+def display(basic, extended, topics, graph):
+    benchmarkTopicsList = []
     for benchmarkTopic in topics['benchmark_topics']:
-        benchmarkTopicsText += "\t" + benchmarkTopic['name'] + "\n"
-    topicsText = ""
+        benchmarkTopicsList.append(benchmarkTopic['name'])
+    benchmarkTopicsText = "\n\t".join(benchmarkTopicsList)
+    topicsList = []
     for topic in topics['topics'][0:5]:
-        topicsText += "\t" + topic['name'] + "\n"
-    influencesText = ""
+        topicsList.append(topic['name'])
+    topicsText = "\n\t".join(topicsList)
+    influencesList = []
+    for influences in graph['influences'][0:5]:
+        influencesList.append(influences['peerindex_id'])
+    influencesText = "\n\t".join(influencesList)
     message = """
 Name:      {name}
 PeerIndex: {peerindex}
 GeoName location ID: {location}
-Topics:
-{topicsText}
-Benchmark Topics:
-{benchmarkTopicsText}
-
+Topics: {topicsText}
+        ...
+Benchmark Topics: {benchmarkTopicsText}
+        ...
+Influences: {influencesText}
+        ...
 """
     print message.format(name = basic['twitter']['name'],
                          peerindex = basic['peerindex'],
                          location = extended['demographics']['location']['geoname_id'],
                          topicsText = topicsText,
-                         benchmarkTopicsText = benchmarkTopicsText)
+                         benchmarkTopicsText = benchmarkTopicsText,
+                         influencesText = influencesText)
 
 
 
@@ -39,9 +46,9 @@ Benchmark Topics:
 api = peerindex.PeerIndex(config.get('api', 'key'))
 
 # Get the profile to query
-name = raw_input("Enter a username [fhuszar]: ")
+name = raw_input("Enter a username [mischatuffield]: ")
 if not name:
-    name = "fhuszar"
+    name = "mischatuffield"
 
 # Query the profile
 query = {'twitter_screen_name' : name}
@@ -49,7 +56,8 @@ try:
     basic    = api.actorBasic(query)
     extended = api.actorExtended(query)
     topics   = api.actorTopic(query)
-    display(basic, extended, topics)
+    graph   = api.actorGraph(query)
+    display(basic, extended, topics, graph)
 
 except peerindex.PeerIndexError as err:
     print "ERROR: check your API key"
