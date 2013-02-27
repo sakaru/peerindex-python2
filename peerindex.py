@@ -22,10 +22,9 @@ To use this you need a PeerIndex API key which
 """
 
 
-import urllib
-import httplib
+from urllib import urlencode
+from httplib import HTTPSConnection, HTTPException
 import json
-import urllib2
 
 ERROR_STATUS = {
     # "200: "OK: Success", IS A GOOD STATUS
@@ -166,7 +165,7 @@ class PeerIndex(object):
         if 'api_key' not in query:
             query['api_key'] = self._api_key
 
-        query_str = urllib.urlencode(query)
+        query_str = urlencode(query)
 
         if len(query) > 0:
             if url.find('?') == -1:
@@ -175,7 +174,7 @@ class PeerIndex(object):
                 url = url + '&' + query_str
 
         try:
-            conn = httplib.HTTPSConnection(self.API_URL)
+            conn = HTTPSConnection(self.API_URL)
             conn.request('GET', url)
             resp = conn.getresponse()
 
@@ -185,7 +184,7 @@ class PeerIndex(object):
                 raise ValueError(data)
                 
     
-        except httplib.HTTPException as err:
+        except HTTPException as err:
             msg = err.read() or ERROR_STATUS.get(err.code, err.message)
             raise PeerIndexError(err.code, msg)
 
