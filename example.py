@@ -23,8 +23,8 @@ def display(basic, extended, topics, graph):
         influencesList.append(influences['peerindex_id'])
     influencesText = "\n\t".join(influencesList)
     message = """
-Name:      {name}
-PeerIndex: {peerindex}
+Twitter ID: {id}
+PeerIndex:  {peerindex}
 GeoName location ID: {location}
 Topics: {topicsText}
         ...
@@ -33,7 +33,7 @@ Benchmark Topics: {benchmarkTopicsText}
 Influences: {influencesText}
         ...
 """
-    print message.format(name = basic['twitter']['name'],
+    print message.format(id = basic['twitter']['id'],
                          peerindex = basic['peerindex'],
                          location = extended['demographics']['location']['geoname_id'],
                          topicsText = topicsText,
